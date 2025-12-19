@@ -293,10 +293,11 @@ async function prepareMount(transferManager: TransferManager, cache: Cache, root
                         write: async (offset: number, length: number, data: Uint8Array) => {
                             let absoluteEnd = offset + data.length;
                             if(buffer.length < absoluteEnd){
-                                buffer = concatUint8Arrays(
+                                
+                                buffer = new Uint8Array(concatUint8Arrays(
                                     buffer,
                                     new Uint8Array(Array(absoluteEnd - buffer.length))
-                                );
+                                ));
                             }
                             for(let i = 0; i<length; i++){
                                 buffer[i + offset] = data[i];
@@ -475,7 +476,7 @@ async function prepareMount(transferManager: TransferManager, cache: Cache, root
                 cb(EPERM);
                 return;
             }
-            cb(await handle.write(position, length, buffer));
+            cb(await handle.write(position, length, buffer as Uint8Array));
         },
         truncate: (path: string, size: number, cb: (code: number) => void)=>cb(0),
         release: async (path: string, fd: number, cb: (code: number) => void) => {

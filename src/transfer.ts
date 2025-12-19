@@ -80,7 +80,9 @@ export class TransferManager {
         const getAsyncPacketIteratorOnWorkerThread = makeGetAsyncPacketIteratorOnWorkerThread(
             new Worker(path.join(__dirname, "..", "node_modules", "netmd-js", "dist", 'node-encrypt-worker.js'))
         );
-        let mdTrack = new MDTrack(name, format, rawData.buffer, 0x400, '', getAsyncPacketIteratorOnWorkerThread);
+        
+        const rawDataBuffer: ArrayBuffer = new Uint8Array(rawData).buffer;
+        let mdTrack = new MDTrack(name, format, rawDataBuffer, 0x400, '', getAsyncPacketIteratorOnWorkerThread);
         await download(this.netmd, mdTrack, data => console.log(JSON.stringify(data)));
     }
 
