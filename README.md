@@ -31,7 +31,7 @@ NOTE: MiniDiscs are very slow to write, so even a few megabytes will take a whil
 
 ### Ejecting
 Files may not be written correctly when ejecting the drive. You will need to enter the following command to ensure the write completes:
-```echo 1 > [path to mount directory]/\$system/force_immediate_flush`
+```echo 1 > [path to mount directory]/\$system/force_immediate_flush```
 
 ### Known issues
 - The application is generally unstable and requires patience
